@@ -51,3 +51,5 @@ npm run dev
 - UI texts are in English.
 - No Tailwind; minimal CSS in `styles/globals.css`.
 - If your contract ABI differs, update `ABI` arrays in `pages/index.tsx` and event names in `pages/api/leaderboard.ts`.
+
+- refrash
