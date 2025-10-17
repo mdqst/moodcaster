@@ -1,12 +1,13 @@
 import type { AppProps } from 'next/app'
 import '../styles/globals.css'
-import { AppKitProvider } from '@reown/appkit'
-import { base } from 'viem/chains'
+import dynamic from 'next/dynamic'
+
+const Providers = dynamic(() => import('../components/Providers'), { ssr: false })
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AppKitProvider chains={[base]} appName="MoodCaster">
+    <Providers>
       <Component {...pageProps} />
-    </AppKitProvider>
+    </Providers>
   )
 }
