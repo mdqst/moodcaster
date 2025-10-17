@@ -1,0 +1,16 @@
+{
+  "miniapp": {
+    "name": "MoodCaster",
+    "description": "Express your mood onchain and see what the Farcaster community feels today.",
+    "iconUrl": "https://yourdomain.com/icon.png",
+    "url": "https://yourdomain.com",
+    "publisher": {
+      "name": "YourName",
+      "contactEmail": "dev@yourdomain.com"
+    },
+    "permissions": {
+      "wallet": true,
+      "signIn": true
+    }
+  }
+}
