@@ -1,4 +1,30 @@
 {
+  "frame": {
+    "name": "MoodCaster",
+    "version": "1",
+    "iconUrl": "https://moodcstr.vercel.app/icon.png",
+    "homeUrl": "https://moodcstr.vercel.app",
+    "imageUrl": "https://moodcstr.vercel.app/image.png",
+    "buttonTitle": "Chose Your Mood",
+    "splashImageUrl": "https://moodcstr.vercel.app/splash.png",
+    "splashBackgroundColor": "#6200EA",
+    "webhookUrl": "https://moodcstr.vercel.app/api/webhook",
+    "primaryCategory": "social",
+    "screenshotUrls": [
+      "https://moodcstr.vercel.app/shot.png"
+    ],
+    "heroImageUrl": "https://moodcstr.vercel.app/hero.png",
+    "tags": [
+      "mood",
+      "fun",
+      "social",
+      "community",
+      "farcaster"
+    ],
+    "tagline": "Mood",
+    "subtitle": "Express your mood onchain with emojis",
+    "description": "Express your mood onchain with emojis - and see what the Farcaster community feels today."
+  },
   "accountAssociation": {
     "header": "eyJmaWQiOjI4OTg3NCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweGIyZjYyZDBEMWUzYmZEMEJCRUNDNURFYThGYWUzNDkzNDRDMTJDRDcifQ",
     "payload": "eyJkb21haW4iOiJtb29kY3N0ci52ZXJjZWwuYXBwIn0",
