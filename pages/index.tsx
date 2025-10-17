@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { sdk } from '@farcaster/miniapp-sdk'
+import { useAppKit } from '@reown/appkit'
 import { ethers } from 'ethers'
 
 const EMOJIS = ['😊','😐','😢','😡','🤩'] as const
@@ -19,6 +20,8 @@ export default function Home() {
   const [txStatus, setTxStatus] = useState<string>('')
   const [leaderboard, setLeaderboard] = useState<{ emojiId: number; count: number; percent: string }[]>([])
 
+  const { isConnected, address, provider, connect, disconnect } = useAppKit()
+
   useEffect(() => {
     sdk.actions.ready()
     fetchPopularMood()
@@ -27,10 +30,10 @@ export default function Home() {
 
   async function fetchPopularMood() {
     try {
-      const provider = new ethers.providers.JsonRpcProvider(BASE_RPC)
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider)
-      const mood: ethers.BigNumber = await contract.getPopularMoodToday()
-      setPopularMood(mood.toNumber())
+      const rpc = new ethers.providers.JsonRpcProvider(BASE_RPC)
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, rpc)
+      const mood: any = await contract.getPopularMoodToday()
+      setPopularMood(Number(mood))
     } catch (e) {
       console.error(e)
     }
@@ -48,26 +51,38 @@ export default function Home() {
 
   async function setMood(emojiId: EmojiId) {
     try {
-      const signer = await (sdk as any).wallet.getSigner()
+      if (!isConnected) {
+        setTxStatus('🔌 Please connect wallet first')
+        await connect()
+        return
+      }
+      if (!provider) throw new Error('No provider from AppKit')
+
+      const ethersProvider = new ethers.providers.Web3Provider(provider as any)
+      const signer = ethersProvider.getSigner()
+      const network = await ethersProvider.getNetwork()
+      if (network.chainId !== 8453n && network.chainId !== 8453) {
+        try {
+          await (ethersProvider.provider as any).request?.({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x2105' }], // 8453 Base
+          })
+        } catch {}
+      }
+
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer)
       const tx = await contract.setMood(emojiId)
-
       setTxStatus('⏳ Sending transaction...')
       await tx.wait()
-
       setTxStatus('✅ Mood recorded onchain!')
       fetchPopularMood()
       fetchLeaderboard()
 
-      // ✨ Auto-cast in Farcaster after successful transaction
+      // Auto-cast in Farcaster
       const emoji = EMOJIS[emojiId]
       const castText = `I'm feeling ${emoji} today onchain with MoodCaster ⚡️`
-
-      // Cast SDK actions to any to safely call openCastComposer (not yet in types)
       const actions: any = sdk.actions
-      if (actions?.openCastComposer) {
-        actions.openCastComposer({ text: castText })
-      }
+      if (actions?.openCastComposer) actions.openCastComposer({ text: castText })
     } catch (e) {
       console.error(e)
       setTxStatus('❌ Failed to send transaction')
@@ -83,6 +98,16 @@ export default function Home() {
       </Head>
 
       <div className="h1">MoodCaster</div>
+
+      {!isConnected ? (
+        <button className="btn" onClick={() => connect()}>🔌 Connect Wallet</button>
+      ) : (
+        <div className="small">
+          Connected: {address?.slice(0,6)}...{address?.slice(-4)}{' '}
+          <button className="btn" onClick={() => disconnect()}>Disconnect</button>
+        </div>
+      )}
+
       <p>Select your current mood:</p>
 
       <div style={{ display: 'flex', gap: 12 }}>
@@ -110,9 +135,7 @@ export default function Home() {
               .map(({ emojiId, count, percent }) => (
                 <li key={emojiId}>
                   <span>{EMOJIS[emojiId]}</span>
-                  <span>
-                    {percent}% <span className="badge">{count}</span>
-                  </span>
+                  <span>{percent}% <span className="badge">{count}</span></span>
                 </li>
               ))}
           </ul>

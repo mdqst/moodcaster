@@ -11,12 +11,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider)
 
-    // Compute timestamp for 24h window
     const currentBlock = await provider.getBlockNumber()
-    const latestBlockData = await provider.getBlock(currentBlock)
-    const fromTime = (latestBlockData?.timestamp || Math.floor(Date.now()/1000)) - 24 * 60 * 60
+    const latest = await provider.getBlock(currentBlock)
+    const fromTime = (latest?.timestamp || Math.floor(Date.now()/1000)) - 24 * 60 * 60
 
-    // Heuristic: scan last ~50k blocks (~1-2 days on Base). Adjust if needed.
     const fromBlock = Math.max(0, currentBlock - 50000)
     const events = await contract.queryFilter('MoodSet', fromBlock, currentBlock)
 
@@ -27,16 +25,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const emojiId: number = Number(args.emojiId)
       if (emojiId < 0 || emojiId > 4) continue
       const b = await ev.getBlock()
-      if (b && b.timestamp >= fromTime) {
-        counts[emojiId] += 1
-      }
+      if (b && b.timestamp >= fromTime) counts[emojiId] += 1
     }
 
     const total = counts.reduce((a,b)=>a+b,0)
     const leaderboard = counts.map((c, i) => ({
       emojiId: i,
       count: c,
-      percent: total ? ( (c/total)*100 ).toFixed(1) : '0.0'
+      percent: total ? ((c/total)*100).toFixed(1) : '0.0'
     }))
 
     res.status(200).json({ leaderboard, total, fromBlock, currentBlock })
