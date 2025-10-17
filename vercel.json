@@ -1,0 +1,15 @@
+{
+  "build": {
+    "env": {
+      "NEXT_PRIVATE_STANDALONE": "true"
+    }
+  },
+  "functions": {
+    "api/**.js": {
+      "runtime": "nodejs20.x"
+    },
+    "pages/**.js": {
+      "runtime": "nodejs20.x"
+    }
+  }
+}
