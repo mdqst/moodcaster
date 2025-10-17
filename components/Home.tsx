@@ -1,13 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import { useAccount, useConnect, useDisconnect, useWalletClient, useChainId, useSwitchChain } from 'wagmi'
 import { ethers } from 'ethers'
-import { useAppKit } from '@reown/appkit/react'
 
 const EMOJIS = ['😊','😐','😢','😡','🤩'] as const
 type EmojiId = 0 | 1 | 2 | 3 | 4
 
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || '0x56043447bef8a243f16d9fd88ce00c4f14837778'
 const BASE_RPC = process.env.NEXT_PUBLIC_BASE_RPC || 'https://mainnet.base.org'
+const BASE_CHAIN_ID = 8453
 
 const ABI = [
   'function setMood(uint8 emojiId)',
@@ -15,7 +16,13 @@ const ABI = [
 ]
 
 export default function Home() {
-  const { isConnected, address, provider, connect, disconnect } = useAppKit()
+  const { address, isConnected } = useAccount()
+  const { connectors, connectAsync } = useConnect()
+  const { disconnect } = useDisconnect()
+  const { data: walletClient } = useWalletClient()
+  const chainId = useChainId()
+  const { switchChainAsync } = useSwitchChain()
+
   const [popularMood, setPopularMood] = useState<number | null>(null)
   const [txStatus, setTxStatus] = useState<string>('')
 
@@ -30,12 +37,35 @@ export default function Home() {
     } catch (e) { console.error(e) }
   }
 
+  async function ensureBase() {
+    try {
+      if (chainId !== BASE_CHAIN_ID && switchChainAsync) {
+        await switchChainAsync({ chainId: BASE_CHAIN_ID })
+      }
+    } catch (e) { console.warn('switchChain failed', e) }
+  }
+
+  async function getEthersSigner() {
+    if (!walletClient) throw new Error('No wallet client')
+    const eip1193 = {
+      request: (args: any) => walletClient.request(args)
+    } as any
+    const provider = new ethers.providers.Web3Provider(eip1193)
+    return provider.getSigner()
+  }
+
   async function setMood(emojiId: EmojiId) {
     try {
-      if (!isConnected) return connect()
-      if (!provider) throw new Error('no provider')
-      const ethersProvider = new ethers.providers.Web3Provider(provider as any)
-      const signer = ethersProvider.getSigner()
+      if (!isConnected) {
+        // show first available connector list
+        const first = connectors[0]
+        if (!first) throw new Error('No wallet connectors available')
+        await connectAsync({ connector: first })
+        return
+      }
+
+      await ensureBase()
+      const signer = await getEthersSigner()
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer)
       const tx = await contract.setMood(emojiId)
       setTxStatus('⏳ Sending transaction...')
@@ -51,21 +81,34 @@ export default function Home() {
   return (
     <div>
       <h1>MoodCaster</h1>
+
       {!isConnected ? (
-        <button onClick={() => connect()}>🔌 Connect Wallet</button>
+        <div>
+          {connectors.map((c) => (
+            <button key={c.uid} onClick={() => connectAsync({ connector: c })}>
+              🔌 Connect {c.name}
+            </button>
+          ))}
+        </div>
       ) : (
         <div>
-          Connected: {address?.slice(0,6)}...{address?.slice(-4)} 
+          Connected: {address?.slice(0,6)}...{address?.slice(-4)}{' '}
           <button onClick={() => disconnect()}>Disconnect</button>
         </div>
       )}
+
       <h3>Select your current mood:</h3>
       {EMOJIS.map((emoji, i) => (
         <button key={i} onClick={() => setMood(i as EmojiId)}>{emoji}</button>
       ))}
+
       <p>{txStatus}</p>
-      <h2>Most popular mood today:</h2>
-      <h1>{popularMood !== null ? EMOJIS[popularMood] : '...'}</h1>
+
+      <div className="card">
+        <h2>Most popular mood today</h2>
+        <div style={{ fontSize: 40 }}>{popularMood !== null ? EMOJIS[popularMood] : '...'}</div>
+        <div className="badge">Base Mainnet</div>
+      </div>
     </div>
   )
 }
