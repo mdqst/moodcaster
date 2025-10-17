@@ -1,16 +1,7 @@
 {
-  "miniapp": {
-    "name": "MoodCaster",
-    "description": "Express your mood onchain and see what the Farcaster community feels today.",
-    "iconUrl": "https://moodcstr.vercel.app/icon.png",
-    "url": "https://moodcstr.vercel.app",
-    "publisher": {
-      "name": "mediaquest",
-      "contactEmail": "dmitry@mdqst.com"
-    },
-    "permissions": {
-      "wallet": true,
-      "signIn": true
-    }
+  "accountAssociation": {
+    "header": "eyJmaWQiOjI4OTg3NCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweGIyZjYyZDBEMWUzYmZEMEJCRUNDNURFYThGYWUzNDkzNDRDMTJDRDcifQ",
+    "payload": "eyJkb21haW4iOiJtb29kY3N0ci52ZXJjZWwuYXBwIn0",
+    "signature": "jFfZ6XwTkTkInp1eP16y+GVHSJxVVWsucmV5L+b3/JAGsVfTaaLth+UtDXIHom3St2BY6HOwmR4gLu6EzbvTnBs="
   }
 }
