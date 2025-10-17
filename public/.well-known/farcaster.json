@@ -23,7 +23,11 @@
     ],
     "tagline": "Mood",
     "subtitle": "Cast your mood!",
-    "description": "Express your mood onchain with emojis - and see what the Farcaster community feels today."
+    "description": "Express your mood onchain with emojis - and see what the Farcaster community feels today.",
+    "permissions": {
+      "wallet": true,
+      "signIn": true
+    }
   },
   "accountAssociation": {
     "header": "eyJmaWQiOjI4OTg3NCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweGIyZjYyZDBEMWUzYmZEMEJCRUNDNURFYThGYWUzNDkzNDRDMTJDRDcifQ",
