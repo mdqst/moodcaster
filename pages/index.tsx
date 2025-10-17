@@ -62,7 +62,12 @@ export default function Home() {
       // ✨ Auto-cast in Farcaster after successful transaction
       const emoji = EMOJIS[emojiId]
       const castText = `I'm feeling ${emoji} today onchain with MoodCaster ⚡️`
-      sdk.actions.openCastComposer({ text: castText })
+
+      // Cast SDK actions to any to safely call openCastComposer (not yet in types)
+      const actions: any = sdk.actions
+      if (actions?.openCastComposer) {
+        actions.openCastComposer({ text: castText })
+      }
     } catch (e) {
       console.error(e)
       setTxStatus('❌ Failed to send transaction')

@@ -51,8 +51,3 @@ npm run dev
 - UI texts are in English.
 - No Tailwind; minimal CSS in `styles/globals.css`.
 - If your contract ABI differs, update `ABI` arrays in `pages/index.tsx` and event names in `pages/api/leaderboard.ts`.
-
-
-## Fix for Build Error
-If you previously saw an error about `react-router-dom`, ensure there is **no `src/App.tsx`** in your project.
-Next.js uses its own routing via the `/pages` folder, not react-router.
