@@ -1,35 +1,19 @@
 :root {
-  --bg: #0f1220;
-  --card: #151832;
-  --text: #f0f2ff;
-  --muted: #a5abdb;
-  --accent: #7aa2ff;
-  --ok: #25c59e;
-  --err: #ff6b6b;
-  --badge: #232752;
+  --bg: #0f1220; --card: #151832; --text: #f0f2ff; --muted: #a5abdb; --ok: #25c59e; --err: #ff6b6b; --badge: #232752;
 }
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: system-ui, Inter, Arial; }
-.container { max-width: 720px; margin: 24px auto; padding: 0 16px; }
-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-h1 { font-size: 24px; margin: 0; }
-h2 { font-size: 18px; margin: 0 0 12px; }
-.badge { background: var(--badge); color: var(--muted); padding: 4px 8px; border-radius: 999px; font-size: 12px; margin-left: 6px; }
-.card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 6px 24px rgba(0,0,0,.35); }
-.moods { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-.moods button { font-size: 28px; padding: 14px 0; background: #1d2250; border: 1px solid #2a2f66; color: var(--text); border-radius: 12px; cursor: pointer; transition: transform .06s ease, background .15s ease; }
-.moods button:hover { transform: translateY(-1px); background: #242a66; }
-.moods button:active { transform: translateY(0); }
-.moods button:disabled { opacity: .6; cursor: not-allowed; }
-.actions { margin-top: 12px; }
-button.secondary { background: transparent; border: 1px solid #334; color: var(--muted); padding: 8px 12px; border-radius: 10px; cursor: pointer; }
-button.secondary:hover { border-color: #556; color: #c8cdf7; }
-.hint { color: var(--muted); margin-top: 8px; font-size: 13px; }
-.toast { margin-top: 12px; font-size: 14px; opacity: 0; transition: all .15s ease; }
-.toast.info, .toast.success, .toast.error { opacity: 1; }
-.toast.success { color: var(--ok); }
-.toast.error { color: var(--err); }
-.leaderboard { display: grid; gap: 8px; }
-.leaderboard .row { display: flex; justify-content: space-between; background: #1a1f45; padding: 8px 12px; border-radius: 10px; }
-.top-today { margin-top: 10px; color: var(--muted); font-size: 14px; }
-footer { text-align: center; color: var(--muted); margin-top: 18px; }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,Inter,Arial}
+.container{max-width:720px;margin:24px auto;padding:0 16px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+h1{font-size:24px;margin:0}h2{font-size:18px;margin:0 0 12px}
+.badge{background:var(--badge);color:var(--muted);padding:4px 8px;border-radius:999px;font-size:12px;margin-left:6px}
+.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.moods button{font-size:28px;padding:14px 0;background:#1d2250;border:1px solid #2a2f66;color:var(--text);border-radius:12px;cursor:pointer;transition:transform .06s ease,background .15s ease}
+.moods button:hover{transform:translateY(-1px);background:#242a66}.moods button:disabled{opacity:.6;cursor:not-allowed}
+button.secondary{background:transparent;border:1px solid #334;color:var(--muted);padding:8px 12px;border-radius:10px;cursor:pointer}
+button.secondary:hover{border-color:#556;color:#c8cdf7}.hint{color:var(--muted);margin-top:8px;font-size:13px}
+.toast{margin-top:12px;font-size:14px;opacity:0;transition:all .15s ease}
+.toast.info,.toast.success,.toast.error{opacity:1}.toast.success{color:var(--ok)}.toast.error{color:var(--err)}
+.leaderboard{display:grid;gap:8px}.leaderboard .row{display:flex;justify-content:space-between;background:#1a1f45;padding:8px 12px;border-radius:10px}
+.top-today{margin-top:10px;color:var(--muted);font-size:14px}footer{text-align:center;color:var(--muted);margin-top:18px}

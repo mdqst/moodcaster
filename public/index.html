@@ -5,19 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Moodcaster — MiniApp</title>
   <link rel="stylesheet" href="./styles.css" />
-  <script type="module">
-    import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk@0.1.10";
-    window.FARCASTER_SDK = sdk;
-  </script>
-  <script type="module">
-    import * as viem from "https://esm.sh/viem@2.12.3";
-    window.viem = viem;
-  </script>
-  <script type="module">
-    import { createAppKit } from "https://cdn.jsdelivr.net/npm/@reown/appkit@1.8.10/+esm";
-    import { base } from "https://cdn.jsdelivr.net/npm/@reown/appkit/networks@1.8.10/+esm";
-    window.ReownAppKit = { createAppKit, base };
-  </script>
+  <script type="module" src="https://esm.sh/@farcaster/miniapp-sdk@0.1.10"></script>
+  <script type="module" src="https://esm.sh/viem@2.12.3"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@reown/appkit@1.8.10/+esm"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@reown/appkit/networks@1.8.10/+esm"></script>
+  <script type="module" src="./app.js"></script>
 </head>
 <body>
   <div class="container">
@@ -64,7 +56,5 @@
       <small>Base mainnet · contract: 0x5604...7778</small>
     </footer>
   </div>
-
-  <script type="module" src="./app.js"></script>
 </body>
 </html>
