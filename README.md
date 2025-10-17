@@ -1,6 +1,6 @@
-# MoodCaster — Reown AppKit Only Build
+# MoodCaster — Reown AppKit (Client Only)
 
-Express your mood onchain with emojis using Reown AppKit wallets (MetaMask, Coinbase, Rainbow, Base, etc.).
+Client-side Next.js app with Reown AppKit wallet support. No SSR, fully compatible with Vercel build.
 
 ## Run locally
 ```bash
@@ -9,5 +9,4 @@ npm run dev
 ```
 
 ## Deploy on Vercel
-Just push to GitHub; Vercel will auto-install packages and build.
-Make sure `@reown/appkit` is in your dependencies.
+Push to GitHub, connect repo in Vercel — build will pass with no errors.
