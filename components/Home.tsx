@@ -78,17 +78,21 @@ export default function Home() {
     }
   }
 
-  return (
+    return (
     <div>
       <h1>MoodCaster</h1>
 
       {!isConnected ? (
         <div>
-          {connectors.map((c) => (
-            <button key={c.uid} onClick={() => connectAsync({ connector: c })}>
-              🔌 Connect {c.name}
-            </button>
-          ))}
+          {connectors.length === 0 ? (
+            <p>No wallet connectors found. Try refreshing or open in a Web3 browser.</p>
+          ) : (
+            connectors.map((c) => (
+              <button key={c.uid} onClick={() => connectAsync({ connector: c })}>
+                🔌 Connect {c.name}
+              </button>
+            ))
+          )}
         </div>
       ) : (
         <div>
