@@ -1,12 +1,23 @@
-# MoodCaster — Reown AppKit (Client Only)
+# MoodCaster — Reown AppKit + Wagmi (Client-Only)
 
-Client-side Next.js app with Reown AppKit wallet support. No SSR, fully compatible with Vercel build.
+- Next.js 14 + TypeScript
+- Reown AppKit (wagmi adapter) + wagmi + viem
+- Client-only rendering (no SSR) so Vercel build succeeds
 
-## Run locally
+## Install
 ```bash
 npm install
+```
+## Dev
+```bash
 npm run dev
 ```
+## Build
+```bash
+npm run build
+```
 
-## Deploy on Vercel
-Push to GitHub, connect repo in Vercel — build will pass with no errors.
+### Notes
+- Base mainnet chainId: 8453 (0x2105)
+- Connect buttons render from available wagmi connectors (via Reown wagmi adapter)
+- Transactions use ethers v5 + EIP-1193 bridge from viem wallet client

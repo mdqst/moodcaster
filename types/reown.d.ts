@@ -1,1 +1,1 @@
-declare module '@reown/appkit';
+declare module '@reown/appkit-adapter-wagmi';
