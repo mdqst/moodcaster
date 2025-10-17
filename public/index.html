@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moodcaster — MiniApp</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module">
+    import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk@0.1.10";
+    window.FARCASTER_SDK = sdk;
+  </script>
+  <script type="module">
+    import * as viem from "https://esm.sh/viem@2.12.3";
+    window.viem = viem;
+  </script>
+  <script type="module">
+    import { createAppKit } from "https://cdn.jsdelivr.net/npm/@reown/appkit@1.8.10/+esm";
+    import { base } from "https://cdn.jsdelivr.net/npm/@reown/appkit/networks@1.8.10/+esm";
+    window.ReownAppKit = { createAppKit, base };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🧠 Moodcaster</h1>
+      <div id="status">
+        <span id="fc-indicator" class="badge">FC?</span>
+        <span id="network" class="badge">–</span>
+        <span id="account" class="badge">–</span>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Select your mood</h2>
+      <div class="moods" id="moods">
+        <button data-id="0" aria-label="happy">😊</button>
+        <button data-id="1" aria-label="neutral">😐</button>
+        <button data-id="2" aria-label="sad">😢</button>
+        <button data-id="3" aria-label="angry">😡</button>
+        <button data-id="4" aria-label="wow">🤩</button>
+      </div>
+      <div class="actions">
+        <button id="connectBtn" class="secondary">Connect Wallet</button>
+      </div>
+      <p id="hint" class="hint">
+        Clicking an emoji sends a transaction to Base → <code>setMood(address, emojiId)</code>.
+      </p>
+      <div id="toast" class="toast"></div>
+    </section>
+
+    <section class="card">
+      <h2>Most popular mood today</h2>
+      <div id="leaderboard" class="leaderboard">
+        <div class="row"><span>😊</span><span id="c0">0</span></div>
+        <div class="row"><span>😐</span><span id="c1">0</span></div>
+        <div class="row"><span>😢</span><span id="c2">0</span></div>
+        <div class="row"><span>😡</span><span id="c3">0</span></div>
+        <div class="row"><span>🤩</span><span id="c4">0</span></div>
+      </div>
+      <div id="top-today" class="top-today">—</div>
+    </section>
+
+    <footer>
+      <small>Base mainnet · contract: 0x5604...7778</small>
+    </footer>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
