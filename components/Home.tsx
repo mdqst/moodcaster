@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
-import { useAppKit } from '@reown/appkit'
+import { useAppKit } from '@reown/appkit/react'
 
 const EMOJIS = ['😊','😐','😢','😡','🤩'] as const
 type EmojiId = 0 | 1 | 2 | 3 | 4
