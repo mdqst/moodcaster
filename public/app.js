@@ -143,7 +143,7 @@ function wireUI() {
   });
   $("#connectBtn").addEventListener("click", async () => {
     try { await ensureConnected(); toast("Wallet connected", 2000, "success"); }
-    catch (e) { toast(e.message || "Connection failed", 5000, "error"); }
+    catch (e) { toast(e.message || "Failed", 5000, "error"); }
   });
 }
 
