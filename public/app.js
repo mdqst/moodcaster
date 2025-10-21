@@ -73,7 +73,7 @@ async function ensureConnected() {
     await appKit.open();
     state.provider = await getProvider();
   }
-  if (!state.provider) throw new Error("No provider found. Try Reown or Farcaster.");
+  if (!state.provider) throw new Error("No provider found. Try Reown or Farcaster!");
   const accounts = await state.provider.request({ method: "eth_requestAccounts" });
   state.account = accounts?.[0] || null;
   state.chainId = await state.provider.request({ method: "eth_chainId" });
@@ -143,7 +143,7 @@ function wireUI() {
   });
   $("#connectBtn").addEventListener("click", async () => {
     try { await ensureConnected(); toast("Wallet connected", 2000, "success"); }
-    catch (e) { toast(e.message || "Failed", 5000, "error"); }
+    catch (e) { toast(e.message || "Connection failed", 5000, "error"); }
   });
 }
 
