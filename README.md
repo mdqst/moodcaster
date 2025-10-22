@@ -1,4 +1,4 @@
-# MoodCaster — Reown AppKit + Wagmi (Client-Only)
+# MoodCaster — Reown AppKit + Wagmi (Client-Only) ᵕ̈
 
 - Next.js 14 + TypeScript
 - Reown AppKit (wagmi adapter) + wagmi + viem
