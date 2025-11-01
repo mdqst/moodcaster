@@ -20,4 +20,4 @@ npm run build
 ### Notes
 - Base mainnet chainId: 8453 (0x2105)
 - Connect buttons render from available wagmi connectors (via Reown wagmi adapter)
-- Transactions use ethers v5 + EIP-1193 bridge from viem wallet client
+- Transactions use ethers v5 + EIP-1193 bridge from viem wallet client.
