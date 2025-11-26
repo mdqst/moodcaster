@@ -33,7 +33,7 @@
     "axios": "^1.13.2",
     "blo": "^1.2.0",
     "csvtojson": "^2.0.10",
-    "date-fns": "^2.29.3",
+    "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
     "evm-proxy-detection": "^3.0.0",
     "firebase": "^12.6.0",
