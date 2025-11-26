@@ -6,7 +6,7 @@
     "@0xsplits/splits-sdk": "^6.0.1",
     "@amplitude/analytics-browser": "^2.11.1",
     "@chakra-ui/anatomy": "^2.2.2",
-    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/react": "^3.30.0",
     "@cloudflare/workers-types": "^4.20241230.0",
     "@decentdao/decent-contracts": "^2.0.0-rc.8",
     "@fontsource/space-mono": "^5.0.19",
