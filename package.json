@@ -38,7 +38,7 @@
     "evm-proxy-detection": "^1.1.0",
     "firebase": "^11.5.0",
     "formik": "^2.2.9",
-    "framer-motion": "^6.5.1",
+    "framer-motion": "^12.23.24",
     "hono": "^4.6.16",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^6.1.5",
